@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    /* Configurações Básicas */
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Paths e Resolução de Módulos */
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    },
+
+    /* Verificação de Tipos e Linting */
+    "skipLibCheck": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    /* Configurações Adicionais */
+    "jsx": "preserve", // Para suporte a JSX em React/Next.js
+    "isolatedModules": true, // Requerido por Vite/Next.js
+    "esModuleInterop": true, // Melhora a interoperabilidade com módulos CommonJS
+    "forceConsistentCasingInFileNames": true, // Garante consistência no caso dos nomes de arquivo
+    "resolveJsonModule": true // Permite importar arquivos JSON, se necessário
+  },
+  "include": ["src/**/*", "vite.config.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
+}
