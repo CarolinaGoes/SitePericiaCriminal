@@ -1,28 +1,37 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Container, Typography, TextField, Button, Grid, Box, Paper } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
-// Estilizando o contêiner principal para centralizar o conteúdo
 const ContactContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   minHeight: '100vh',
-  padding: theme.spacing(4),
-  backgroundColor: theme.palette.background.default,
+  padding: theme.spacing(2),
+  backgroundColor: theme.palette.primary.main,
+  width: '100%',
+  boxSizing: 'border-box'
 }));
 
-// Estilizando o Paper para o formulário
 const FormPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(6),
+  padding: theme.spacing(4),
+  backgroundColor: theme.palette.primary.contrastText,
+  color: theme.palette.text.primary,
   maxWidth: 600,
   width: '100%',
+  fontSize: '18px',
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(3),
+    margin: '0 auto',
+    fontSize: '16px',
   },
 }));
 
-const Contact = () => {
+
+
+const Contact: React.FC = () => {
+  const theme = useTheme();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -36,14 +45,12 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aqui você pode adicionar a lógica para enviar os dados do formulário
-    // (por exemplo, para um backend, um serviço de e-mail, etc.).
     console.log('Dados do formulário:', formData);
     alert('Mensagem enviada com sucesso!');
 
-    // Resetar o formulário após o envio
+    
     setFormData({
       name: '',
       email: '',
@@ -52,13 +59,20 @@ const Contact = () => {
   };
 
   return (
-    <ContactContainer>
-      <Container maxWidth="md">
-        <FormPaper elevation={6}>
-          <Typography variant="h4" component="h1" gutterBottom align="center">
+    <ContactContainer theme={theme}>
+      <Container 
+        maxWidth="md" 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center',
+          padding: { xs: 0, sm: 2 } }}>
+
+        <FormPaper elevation={6} theme={theme}>
+          <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ fontSize: { xs: '1.75rem', sm: '2.125rem' } }} >
             Entre em Contato
           </Typography>
-          <Typography variant="body1" color="text.secondary" paragraph align="center">
+          <Typography variant="body1" color="text.secondary" paragraph align="center" sx={{ fontSize: '1.1rem' }}>
             Preencha o formulário abaixo e entraremos em contato com você o mais breve possível.
           </Typography>
 
@@ -74,6 +88,11 @@ const Contact = () => {
                   variant="outlined"
                   value={formData.name}
                   onChange={handleChange}
+                  InputProps={{
+                    style: { fontSize: '1.1rem' }}}
+                  InputLabelProps={{
+                    style: { fontSize: '1.1rem' }
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -87,6 +106,12 @@ const Contact = () => {
                   variant="outlined"
                   value={formData.email}
                   onChange={handleChange}
+                  InputProps={{
+                    style: { fontSize: '1.1rem' } 
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: '1.1rem' } 
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -101,18 +126,31 @@ const Contact = () => {
                   variant="outlined"
                   value={formData.message}
                   onChange={handleChange}
+                  InputProps={{
+                    style: { fontSize: '1.1rem' } 
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: '1.1rem' }
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button
-                  fullWidth
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                >
-                  Enviar Mensagem
-                </Button>
+    <Button
+      fullWidth
+      type="submit"
+      variant="contained"
+      size="large"
+      sx={{ 
+        fontSize: '1.1rem', 
+        py: 1.5,
+        backgroundColor: theme.palette.primary.light,
+        '&:hover': {
+          backgroundColor: theme.palette.primary.main,
+        }
+      }}
+    >
+      Enviar Mensagem
+    </Button>
               </Grid>
             </Grid>
           </Box>
