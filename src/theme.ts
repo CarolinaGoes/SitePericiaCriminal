@@ -14,6 +14,7 @@ let theme = createTheme({
   typography: {
     fontFamily: 'Helvetica Neue',
   },
+  
 });
 
 theme = responsiveFontSizes(theme);

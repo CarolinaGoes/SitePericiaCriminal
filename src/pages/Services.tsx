@@ -22,13 +22,13 @@ const StyledContainer = styled(Container)(({ theme }) => ({
   paddingTop: theme.spacing(8),
   paddingBottom: theme.spacing(8),
   backgroundColor: theme.palette.primary.main, 
-  minHeight: '100vh', 
+  height: '100vh', 
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center', 
   width: '100%',
   alignItems: 'center',
-  maxWidth: 'none',
+  maxWidth: '100vw',
   
 }));
 
@@ -67,8 +67,8 @@ const Servicos = () => {
   ];
 
   return (
-    <StyledContainer >
-      <div style={{ width: '100%' }}/> 
+    <StyledContainer maxWidth={false}>
+      <div style={{ }}/> 
         <Typography
           margin={theme.spacing(4, 0)}
           variant="h3" 
@@ -83,9 +83,10 @@ const Servicos = () => {
         >
           Serviços de Perícia Grafotécnica
         </Typography>
-      <Grid container spacing={3}>
+        
+      <Grid container maxWidth="lg">
         {servicos.map((servico, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid xs={12} sm={6} md={4} key={index}>
             <StyledCard>
               <CardContent>
                 <Typography
