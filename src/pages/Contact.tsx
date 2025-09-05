@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import { Container, Typography, TextField, Button, Grid, Box, Paper } from '@mui/material';
+import { Container, Typography, TextField, Button, Grid, Box, Paper, Alert, Snackbar } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import emailjs from '@emailjs/browser';
 
 const ContactContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -28,14 +29,18 @@ const FormPaper = styled(Paper)(({ theme }) => ({
   },
 }));
 
-
-
 const Contact: React.FC = () => {
   const theme = useTheme();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState({ 
+    open: false, 
+    message: '', 
+    severity: 'success' as 'success' | 'error' 
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,17 +50,50 @@ const Contact: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Dados do formulário:', formData);
-    alert('Mensagem enviada com sucesso!');
+    setLoading(true);
 
-    
-    setFormData({
-      name: '',
-      email: '',
-      message: '',
-    });
+    try {
+      await emailjs.send(
+        'carolinarocha.89@hotmail',       // Service ID - SUBSTITUA pelo seu
+        'template_3n1vu9u',      // Template ID - SUBSTITUA pelo seu
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          title: `Contato de ${formData.name}`,
+          date: new Date().toLocaleString('pt-BR')
+        },
+        'bci0R3NLb9P_o5BtZ'  // Public Key - SUBSTITUA pela sua
+      );
+      
+      setSnackbar({ 
+        open: true, 
+        message: 'Mensagem enviada com sucesso!', 
+        severity: 'success' 
+      });
+
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+      });
+
+    } catch (error) {
+      console.error('Erro ao enviar email:', error);
+      setSnackbar({ 
+        open: true, 
+        message: 'Erro ao enviar mensagem. Tente novamente.', 
+        severity: 'error' 
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
   };
 
   return (
@@ -66,8 +104,9 @@ const Contact: React.FC = () => {
           display: 'flex', 
           justifyContent: 'center', 
           alignItems: 'center',
-          padding: { xs: 0, sm: 2 } }}>
-
+          padding: { xs: 0, sm: 2 } 
+        }}
+      >
         <FormPaper elevation={6} theme={theme}>
           <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ fontSize: { xs: '1.75rem', sm: '2.125rem' } }} >
             Entre em Contato
@@ -88,8 +127,10 @@ const Contact: React.FC = () => {
                   variant="outlined"
                   value={formData.name}
                   onChange={handleChange}
+                  disabled={loading}
                   InputProps={{
-                    style: { fontSize: '1.1rem' }}}
+                    style: { fontSize: '1.1rem' }
+                  }}
                   InputLabelProps={{
                     style: { fontSize: '1.1rem' }
                   }}
@@ -106,6 +147,7 @@ const Contact: React.FC = () => {
                   variant="outlined"
                   value={formData.email}
                   onChange={handleChange}
+                  disabled={loading}
                   InputProps={{
                     style: { fontSize: '1.1rem' } 
                   }}
@@ -126,6 +168,7 @@ const Contact: React.FC = () => {
                   variant="outlined"
                   value={formData.message}
                   onChange={handleChange}
+                  disabled={loading}
                   InputProps={{
                     style: { fontSize: '1.1rem' } 
                   }}
@@ -135,27 +178,43 @@ const Contact: React.FC = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-    <Button
-      fullWidth
-      type="submit"
-      variant="contained"
-      size="large"
-      sx={{ 
-        fontSize: '1.1rem', 
-        py: 1.5,
-        backgroundColor: theme.palette.primary.light,
-        '&:hover': {
-          backgroundColor: theme.palette.primary.main,
-        }
-      }}
-    >
-      Enviar Mensagem
-    </Button>
+                <Button
+                  fullWidth
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  disabled={loading}
+                  sx={{ 
+                    fontSize: '1.1rem', 
+                    py: 1.5,
+                    backgroundColor: theme.palette.primary.light,
+                    '&:hover': {
+                      backgroundColor: theme.palette.primary.main,
+                    }
+                  }}
+                >
+                  {loading ? 'Enviando...' : 'Enviar Mensagem'}
+                </Button>
               </Grid>
             </Grid>
           </Box>
         </FormPaper>
       </Container>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </ContactContainer>
   );
 };
