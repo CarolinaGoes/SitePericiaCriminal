@@ -4,9 +4,9 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
-import Avatar from "../assets/images/avatar.png";
 import theme from "../theme.ts";
 import StyledButton from "../components/StyledButton/StyledButton.tsx";
+import StyledLogo from "../components/StyledLogo.tsx";
 
 const Hero = () => {
   const StyledHero = styled("div")(() => ({
@@ -17,19 +17,13 @@ const Hero = () => {
 
   }));
 
-  const StyledImg = styled("img")(() => ({
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: "50%",
-    width: "80%",
-
-  }));
 
   return (
     <StyledHero>
       <Container maxWidth="lg">
         <Grid container spacing={2} alignItems="center" justifyContent="center">
           <Grid item xs={12} md={5} textAlign="center">
-            <StyledImg src={Avatar} alt="Foto de perfil de Marjorie Carlos" />
+            <StyledLogo />
           </Grid>
 
           <Grid item xs={12} md={7} textAlign="center">

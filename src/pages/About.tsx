@@ -3,7 +3,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import { Container, Grid, Typography, Box } from '@mui/material';
 import aboutImage from '../assets/images/Marjorie.jpg';
 
-// Estilizando o contêiner principal da seção
+
 const SectionContainer = styled(Box)(({ theme }) => ({
   height: '100vh',
   padding: theme.spacing(8, 0),
@@ -19,9 +19,6 @@ const StyledImage = styled('img')({
   display: 'block',
 });
 
-// AQUI ESTÁ A MUDANÇA: O componente SectionTitle foi removido.
-// Ele não é mais necessário, já que o estilo foi aplicado diretamente
-// à Typography abaixo.
 
 const About = () => {
   const theme = useTheme();
@@ -30,7 +27,7 @@ const About = () => {
     <SectionContainer>
       <Container maxWidth="lg">
         <Typography
-          margin={theme.spacing(4, 0)}
+          margin={theme.spacing(15, 10)}
           variant="h3"
           component="h1"
           align="center"
@@ -52,9 +49,9 @@ const About = () => {
           A ciência que analisa a autenticidade e a autoria de documentos escritos à mão. 🕵️‍♂️
         </Typography>
 
-        <Grid container spacing={5} alignItems="center" sx={{ mt: 5 }}>
+        <Grid container spacing={10} alignItems="center" sx={{mt: 5 }}>
           <Grid item xs={12} md={6}>
-            <StyledImage src={aboutImage} alt="Perito examinando documentos" />
+            <StyledImage sx={{marginLeft: "auto"}} src={aboutImage} alt="Perito examinando documentos" />
           </Grid>
 
           <Grid item xs={12} md={6}>
