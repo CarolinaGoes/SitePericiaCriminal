@@ -14,11 +14,13 @@ const ScrollHandler = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Evita scroll automático no carregamento inicial da página
-    const isInitialLoad = !location.state && !location.hash;
-    
-    if (isInitialLoad) {
-      // Garante que inicia no topo na carga inicial
+    // Limpa qualquer estado de scroll anterior no carregamento inicial
+    if (window.history.state && window.history.state.idx === 0) {
+      window.history.replaceState({}, document.title);
+    }
+
+    // Scroll para o topo no carregamento inicial
+    if (location.pathname === '/' && !location.state && !location.hash) {
       window.scrollTo(0, 0);
       return;
     }
