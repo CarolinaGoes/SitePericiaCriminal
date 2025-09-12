@@ -1,12 +1,16 @@
-import { Container } from "@mui/material";
+import { Container, useMediaQuery, useTheme } from "@mui/material";
 import { useState, useEffect } from "react";
 
-const EmptySquad = ({ isAnimating, style }: { isAnimating: boolean; style?: React.CSSProperties }) => (
+const EmptySquad = ({ isAnimating, size, style }: { 
+  isAnimating: boolean; 
+  size: number;
+  style?: React.CSSProperties 
+}) => (
   <div
     style={{
       backgroundColor: isAnimating ? "#d2b01922" : "transparent",
-      width: "20vh",
-      height: "20vh",
+      width: `${size}vh`,
+      height: `${size}vh`,
       display: "flex",
       transform: "rotate(45deg)",
       justifyContent: "center",
@@ -14,21 +18,25 @@ const EmptySquad = ({ isAnimating, style }: { isAnimating: boolean; style?: Reac
       border: isAnimating ? "1.3vh solid #ffd700" : "1vh solid #d2b019ff",
       boxShadow: isAnimating ? "0 0 25px rgba(210, 176, 25, 0.6)" : "none",
       zIndex: 0,
-      marginBottom: "-15vh",
-      marginTop: "-15vh",
-      transition: "all 1s ease",
+      marginBottom: `-${size * 0.75}vh`,
+      marginTop: `-${size * 0.75}vh`,
+      transition: "all 0.6s ease",
       ...style
     }}
   />
 );
 
-const FiledSquad = ({ isAnimating, style }: { isAnimating: boolean; style?: React.CSSProperties }) => {
+const FiledSquad = ({ isAnimating, size, style }: { 
+  isAnimating: boolean; 
+  size: number;
+  style?: React.CSSProperties 
+}) => {
   return (
     <div
       style={{
         backgroundColor: isAnimating ? "#1a1a1a" : "#232323",
-        width: "20vh",
-        height: "20vh",
+        width: `${size}vh`,
+        height: `${size}vh`,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -36,28 +44,27 @@ const FiledSquad = ({ isAnimating, style }: { isAnimating: boolean; style?: Reac
         border: isAnimating ? "1.3vh solid #ffd700" : "1vh solid #d2b019ff",
         boxShadow: isAnimating ? "0 0 25px rgba(210, 176, 25, 0.6)" : "none",
         zIndex: 1,
-        transition: "all 1s ease",
+        transition: "all 0.6s ease",
         ...style
       }}
     >
       <div
         style={{
           backgroundColor: "#232323", 
-          width: "5vh",
-          height: "20vh",
+          width: `${size * 0.28}vh`,
+          height: `${size}vh`,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           border: isAnimating ? "1.3vh solid #ffd700" : "1vh solid #d2b019ff",
           boxShadow: isAnimating ? "0 0 25px rgba(210, 176, 25, 0.6)" : "none",
-          marginRight: "3vh",
+          marginRight: `${size * 0.09}vh`,
           zIndex: 1,
-          transition: "all 1s ease",
+          transition: "all 0.6s ease",
           position: "relative",
           overflow: "hidden",
         }}
       >
-        
         <div
           style={{
             position: "absolute",
@@ -68,22 +75,22 @@ const FiledSquad = ({ isAnimating, style }: { isAnimating: boolean; style?: Reac
             background: isAnimating 
               ? "linear-gradient(45deg, transparent 0%, rgba(210, 176, 25, 0.3) 50%, transparent 100%)" 
               : "none",
-            transition: "all 1.5s ease",
+            transition: "all 0.9s ease",
           }}
         />
       </div>
       <div
         style={{
           backgroundColor: "#232323", 
-          width: "5vh",
-          height: "20vh",
+          width: `${size * 0.28}vh`,
+          height: `${size}vh`,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           border: isAnimating ? "1.3vh solid #ffd700" : "1vh solid #d2b019ff",
           boxShadow: isAnimating ? "0 0 25px rgba(210, 176, 25, 0.6)" : "none",
           zIndex: 1,
-          transition: "all 1.5s ease",
+          transition: "all 0.9s ease",
           position: "relative",
           overflow: "hidden",
         }}
@@ -98,7 +105,7 @@ const FiledSquad = ({ isAnimating, style }: { isAnimating: boolean; style?: Reac
             background: isAnimating 
               ? "linear-gradient(45deg, transparent 0%, rgba(210, 176, 25, 0.3) 50%, transparent 100%)" 
               : "none",
-            transition: "all 1.0s ease",
+            transition: "all 0.6s ease",
           }}
         />
       </div>
@@ -108,15 +115,19 @@ const FiledSquad = ({ isAnimating, style }: { isAnimating: boolean; style?: Reac
 
 const StyledLogo = () => {
   const [isAnimating, setIsAnimating] = useState(false);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  
+  const logoSize = isSmallScreen ? 12 : 20;
 
   useEffect(() => {
     const startTimer = setTimeout(() => {
       setIsAnimating(true);
-    }, 500);
+    }, 300);
 
     const interval = setInterval(() => {
       setIsAnimating(prev => !prev);
-    }, 4000);
+    }, 2500);
 
     return () => {
       clearTimeout(startTimer);
@@ -131,15 +142,27 @@ const StyledLogo = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "35vh",
+        height: `${logoSize * 1.75}vh`,
         width: "100%",
         padding: "20px",
         margin: "20px 0"
       }}
     >
-      <EmptySquad isAnimating={isAnimating} style={{ transitionDelay: "0s" }} />
-      <FiledSquad isAnimating={isAnimating} style={{ transitionDelay: "0.2s" }} />
-      <EmptySquad isAnimating={isAnimating} style={{ transitionDelay: "0.4s" }} />
+      <EmptySquad 
+        isAnimating={isAnimating} 
+        size={logoSize}
+        style={{ transitionDelay: "0s" }} 
+      />
+      <FiledSquad 
+        isAnimating={isAnimating} 
+        size={logoSize}
+        style={{ transitionDelay: "0.1s" }} 
+      />
+      <EmptySquad 
+        isAnimating={isAnimating} 
+        size={logoSize}
+        style={{ transitionDelay: "0.2s" }} 
+      />
     </Container>
   );
 };

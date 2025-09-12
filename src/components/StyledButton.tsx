@@ -3,10 +3,13 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import type { ButtonProps } from "@mui/material/Button";
 import type { ReactElement } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface StyledButtonProps extends Omit<ButtonProps, "variant"> {
   variant: "contained" | "outlined"; 
   startIcon?: ReactElement;
+  to?: string;
+  onClick?: () => void;
 }
 
 const StyledButtonWrapper = styled(Button)<StyledButtonProps>(
@@ -43,8 +46,40 @@ const StyledButtonWrapper = styled(Button)<StyledButtonProps>(
   })
 );
 
-const StyledButton: React.FC<StyledButtonProps> = (props) => {
-  return <StyledButtonWrapper {...props} />;
+const StyledButton: React.FC<StyledButtonProps> = ({ to, onClick, ...props }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClick = () => {
+    if (to) {
+      if (to.startsWith('#')) {
+        const anchorId = to.substring(1);
+        
+        if (location.pathname === '/') {
+          // Scroll suave na mesma página
+          const element = document.getElementById(anchorId);
+          if (element) {
+            element.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        } else {
+          // Navega para home com estado para scroll
+          navigate('/', { state: { scrollTo: anchorId } });
+        }
+      } else {
+        // Navegação normal para outras páginas
+        navigate(to);
+      }
+    }
+    
+    if (onClick) {
+      onClick();
+    }
+  };
+
+  return <StyledButtonWrapper {...props} onClick={handleClick} />;
 };
 
 export default StyledButton;

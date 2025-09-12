@@ -42,7 +42,8 @@ const Footer = () => {
               sx={{ 
                 fontWeight: 'bold',
                 textAlign: { xs: 'center', md: 'left' },
-                mb: 3
+                mb: 3,
+                mt: 0
               }}
             >
               Contato
