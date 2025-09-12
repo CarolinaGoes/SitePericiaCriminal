@@ -65,9 +65,9 @@ function App() {
           <Route path="/sobre" element={<About />} />
           <Route path="/servicos" element={<Services />} />
           <Route path="/contato" element={<Contact />} />
+          <Route path="/footer" element={<Footer />} />    
         </Routes>
       </Router>
-      <Footer />
     </ThemeProvider>
   );
 }

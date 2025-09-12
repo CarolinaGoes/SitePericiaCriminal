@@ -4,6 +4,7 @@ import Services from "../Services";
 import About from "../About";
 import Contact from "../Contact";
 import ScrollToTopButton from "../../components/ScrollToTopButton";
+import Footer from '../Footer';
 
 const Home = () => {
   // Garante que a página inicia no topo
@@ -25,6 +26,9 @@ const Home = () => {
       
       <div id="contato">
         <Contact />
+      </div>
+      <div id="siga-nos">
+        <Footer />
       </div>
 
       <ScrollToTopButton />

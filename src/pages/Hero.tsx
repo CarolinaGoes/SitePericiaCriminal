@@ -8,6 +8,7 @@ import theme from "../theme.ts";
 import StyledButton from "../components/StyledButton.tsx";
 import StyledLogo from "../components/StyledLogo.tsx";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
 const Hero = () => {
   const StyledHero = styled("div")(() => ({
@@ -51,6 +52,12 @@ const Hero = () => {
                 <StyledButton variant="outlined" to="#contato">
                   <PermContactCalendarIcon />
                   Entre em Contato
+                </StyledButton>
+              </Grid>
+              <Grid item xs={12} md={4} display="flex" justifyContent="start">
+                <StyledButton variant="outlined" to="#siga-nos">
+                  <AlternateEmailIcon />
+                  Siga-nos
                 </StyledButton>
               </Grid>
             </Grid>
