@@ -8,6 +8,7 @@ import Home from './pages/Home/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
+import Footer from './pages/Footer';
 
 // Componente para lidar com scroll automático
 const ScrollHandler = () => {
@@ -66,6 +67,7 @@ function App() {
           <Route path="/contato" element={<Contact />} />
         </Routes>
       </Router>
+      <Footer />
     </ThemeProvider>
   );
 }
