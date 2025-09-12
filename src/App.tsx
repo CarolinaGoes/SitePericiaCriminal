@@ -1,4 +1,4 @@
-// App.tsx
+// App.tsx - ScrollHandler corrigido
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
@@ -8,14 +8,22 @@ import Home from './pages/Home/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
-import Footer from './pages/Footer';
 
 // Componente para lidar com scroll automático
 const ScrollHandler = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Scroll para âncora se especificado no state
+    // Evita scroll automático no carregamento inicial da página
+    const isInitialLoad = !location.state && !location.hash;
+    
+    if (isInitialLoad) {
+      // Garante que inicia no topo na carga inicial
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    // Scroll para âncora se especificado no state (após navegação)
     if (location.state?.scrollTo) {
       const element = document.getElementById(location.state.scrollTo);
       if (element) {
@@ -27,11 +35,6 @@ const ScrollHandler = () => {
           });
         }, 100);
       }
-    }
-    
-    // Scroll para topo em mudanças de rota normais
-    else if (!location.hash) {
-      window.scrollTo(0, 0);
     }
     
     // Scroll para hash na URL (fallback)
@@ -61,7 +64,6 @@ function App() {
           <Route path="/contato" element={<Contact />} />
         </Routes>
       </Router>
-      <Footer />
     </ThemeProvider>
   );
 }
