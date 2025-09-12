@@ -1,16 +1,25 @@
 import React from 'react';
-import { ThemeProvider } from '@mui/material/styles'; // Importe ThemeProvider
-import CssBaseline from '@mui/material/CssBaseline'; // Importe CssBaseline
-import theme from './theme'; // Importe seu tema personalizado
-import Home from "./pages/Home/Home"; // Seu componente Home
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Box } from '@mui/material';
+import theme from './theme';
+import Home from "./pages/Home/Home";
+import Footer from './pages/Footer';
 
 const App = () => {
   return (
-    // Envolva toda a sua aplicação com o ThemeProvider
     <ThemeProvider theme={theme}>
-      {/* O CssBaseline aplica estilos básicos para consistência entre navegadores */}
       <CssBaseline />
-      <Home />
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        minHeight: '100vh' 
+      }}>
+        <Box sx={{ flexGrow: 1 }}>
+          <Home />
+        </Box>
+        <Footer />
+      </Box>
     </ThemeProvider>
   );
 };

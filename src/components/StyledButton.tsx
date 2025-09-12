@@ -5,7 +5,7 @@ import type { ButtonProps } from "@mui/material/Button";
 import type { ReactElement } from "react";
 
 interface StyledButtonProps extends Omit<ButtonProps, "variant"> {
-  variant: "contained" | "outlined"; // 🔥 reintroduzindo variant
+  variant: "contained" | "outlined"; 
   startIcon?: ReactElement;
 }
 

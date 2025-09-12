@@ -16,7 +16,7 @@ const EmptySquad = ({ isAnimating, style }: { isAnimating: boolean; style?: Reac
       zIndex: 0,
       marginBottom: "-15vh",
       marginTop: "-15vh",
-      transition: "all 1.5s ease",
+      transition: "all 1s ease",
       ...style
     }}
   />
@@ -36,7 +36,7 @@ const FiledSquad = ({ isAnimating, style }: { isAnimating: boolean; style?: Reac
         border: isAnimating ? "1.3vh solid #ffd700" : "1vh solid #d2b019ff",
         boxShadow: isAnimating ? "0 0 25px rgba(210, 176, 25, 0.6)" : "none",
         zIndex: 1,
-        transition: "all 1.5s ease",
+        transition: "all 1s ease",
         ...style
       }}
     >
@@ -52,7 +52,7 @@ const FiledSquad = ({ isAnimating, style }: { isAnimating: boolean; style?: Reac
           boxShadow: isAnimating ? "0 0 25px rgba(210, 176, 25, 0.6)" : "none",
           marginRight: "3vh",
           zIndex: 1,
-          transition: "all 1.5s ease",
+          transition: "all 1s ease",
           position: "relative",
           overflow: "hidden",
         }}

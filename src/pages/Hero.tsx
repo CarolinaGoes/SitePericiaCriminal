@@ -5,22 +5,26 @@ import Typography from "@mui/material/Typography";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import theme from "../theme.ts";
-import StyledButton from "../components/StyledButton/StyledButton.tsx";
+import StyledButton from "../components/StyledButton.tsx";
 import StyledLogo from "../components/StyledLogo.tsx";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+
 
 const Hero = () => {
   const StyledHero = styled("div")(() => ({
     backgroundColor: theme.palette.primary.main,
-    height: "100vh",
+    height: "auto",
     display: "flex",
     alignItems: "center",
+    paddingBottom: theme.spacing(4),
 
   }));
 
 
   return (
     <StyledHero>
-      <Container maxWidth="lg">
+      <Container sx={{marginBottom: "auto"}}
+ maxWidth="lg">
         <Grid container spacing={2} alignItems="center" justifyContent="center">
           <Grid item xs={12} md={5} textAlign="center">
             <StyledLogo />
@@ -35,9 +39,18 @@ const Hero = () => {
             </Typography>
 
             <Grid container spacing={2} justifyContent="center" mt={2}>
+              <Grid item xs={12} md={4} display="flex" justifyContent="center" >
+
+                <StyledButton variant="outlined" href="#about" >
+                  {<InfoOutlinedIcon/>}
+                  
+                    Sobre
+                  
+                </StyledButton>
+              </Grid>
               <Grid item xs={12} md={4} display="flex" justifyContent="center">
 
-                <StyledButton variant="outlined" href="#servicos">
+                <StyledButton variant="outlined" href="#servicos" >
                   {<FingerprintIcon />}
                   
                     Serviços

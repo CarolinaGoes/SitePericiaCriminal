@@ -6,30 +6,28 @@ const StyledCard = styled(Card)(({ theme }) => ({
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: theme.palette.primary.main, 
-  color: theme.palette.primary.contrastText, 
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.primary.contrastText,
   transition: 'transform 0.3s ease-in-out',
   gap: theme.spacing(2),
   padding: theme.spacing(3),
   '&:hover': {
     transform: 'translateY(-8px)',
     boxShadow: theme.shadows[6],
-    border: `1px solid ${theme.palette.secondary.main}`, 
+    border: `1px solid ${theme.palette.secondary.main}`,
   },
 }));
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   paddingTop: theme.spacing(8),
   paddingBottom: theme.spacing(8),
-  backgroundColor: theme.palette.primary.main, 
-  height: '100vh', 
+  backgroundColor: theme.palette.primary.main,
+  minHeight: '100vh', // ⬅️ troquei height fixo por minHeight
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center', 
-  width: '100%',
+  justifyContent: 'flex-start', // ⬅️ evita esmagar o conteúdo
   alignItems: 'center',
   maxWidth: '100vw',
-  
 }));
 
 const Servicos = () => {
@@ -68,29 +66,28 @@ const Servicos = () => {
 
   return (
     <StyledContainer maxWidth={false}>
-      <div style={{ }}/> 
-        <Typography
-          margin={theme.spacing(4, 0)}
-          variant="h3" 
-          component="h2"
-          align="center"
-          gutterBottom
-          sx={{
-            color: theme.palette.secondary.main, 
-            fontWeight: 'bold',
-            fontFamily: theme.typography.fontFamily, 
-          }}
-        >
-          Serviços de Perícia Grafotécnica
-        </Typography>
-        
-      <Grid container maxWidth="lg">
+      <Typography
+        margin= '5px'
+        variant="h3"
+        component="h2"
+        align="center"
+        gutterBottom
+        sx={{
+          color: theme.palette.secondary.main,
+          fontWeight: 'bold',
+          fontFamily: theme.typography.fontFamily,
+        }}
+      >
+        Serviços de Perícia Grafotécnica
+      </Typography>
+
+      <Grid container spacing={4} justifyContent="center">
         {servicos.map((servico, index) => (
-          <Grid xs={12} sm={6} md={4} key={index}>
+          <Grid item xs={12} sm={6} md={4} key={index}>
             <StyledCard>
               <CardContent>
                 <Typography
-                  variant="h5" 
+                  variant="h5"
                   component="h3"
                   gutterBottom
                   sx={{
@@ -101,9 +98,9 @@ const Servicos = () => {
                   {servico.title}
                 </Typography>
                 <Typography
-                  variant="body1" 
+                  variant="body1"
                   sx={{
-                    fontFamily: theme.typography.fontFamily, 
+                    fontFamily: theme.typography.fontFamily,
                   }}
                 >
                   {servico.description}
